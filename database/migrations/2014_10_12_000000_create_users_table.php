@@ -1,10 +1,11 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,12 +17,26 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('login')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('email')->unique();
+            $table->unsignedBigInteger('equipe_id')->nullable();
+            $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('set null');
             $table->timestamps();
         });
+
+        // Adicione o usuário administrador
+        $admin = [
+            'name' => 'Administrador',
+            'login' => 'admin',
+            'password' => Hash::make('Realtech@10'),
+            'email' => 'admin@example.com',
+            'equipe_id' => null, // Corrigido o nome da coluna
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        DB::table('users')->insert($admin);
     }
 
     /**
@@ -33,4 +48,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-};
+}
