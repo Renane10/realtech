@@ -1,5 +1,4 @@
 <?php
-<!-- users.blade.php -->
 
 @extends('layouts.app')
 
