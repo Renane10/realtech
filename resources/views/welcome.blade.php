@@ -40,7 +40,7 @@
                 error: function(res) {
                     // Exibir mensagem de erro caso a autenticação falhe
                     var message = res.message;
-                    toastr.error(message);
+                    toastr.error('Usuario ou senha incorreto!');
                 }
             });
         });
