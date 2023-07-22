@@ -8,8 +8,17 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function index(){
-        $usuarios = User::all();
-        return view('usuarios', ['users' => $usuarios]);
+        $linhas = User::all();
+        $titulo = 'Gerenciamento de Usuários';
+        $descricao = 'Aqui você pode cadastrar, editar e inativar os usuários do sistema';
+        // Configuração das colunas da tabela
+        $colunas = [
+            'name' => 'Nome',
+            'login' => 'Login',
+            'email' => 'E-mail',
+            'team' => 'Equipe',
+        ];
+        return view('lista', compact('linhas', 'colunas','titulo', 'descricao'));
     }
     public function store(Request $request)
     {
