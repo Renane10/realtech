@@ -18,7 +18,34 @@ class UserController extends Controller
             'email' => 'E-mail',
             'team' => 'Equipe',
         ];
-        return view('lista', compact('linhas', 'colunas','titulo', 'descricao'));
+        $adicao = [
+            'name' => ['tipo'=>'string','label'=>'Nome'],
+            'login' => ['tipo'=>'string','label'=>'Login'],
+            'password' => ['tipo'=>'password','label'=>'Senha'],
+            'email' => ['tipo'=>'email','label'=>'E-mail'],
+            'team_id' => ['tipo'=>'select','label'=>'Equipe','options'=>
+                [
+                    ['value'=>1,'label'=>'Equipe 1'],
+                    ['value'=>2,'label'=>'Equipe 2'],
+                    ['value'=>3,'label'=>'Equipe 3'],
+                ]
+            ],
+        ];
+        $edicao = [
+            'name' => ['tipo'=>'string','label'=>'Nome'],
+            'login' => ['tipo'=>'string','label'=>'Login'],
+            'password' => ['tipo'=>'password','label'=>'Senha'],
+            'email' => ['tipo'=>'email','label'=>'E-mail'],
+            'team_id' => ['tipo'=>'select','label'=>'Equipe','options'=>
+                [
+                    ['value'=>1,'label'=>'Equipe 1'],
+                    ['value'=>2,'label'=>'Equipe 2'],
+                    ['value'=>3,'label'=>'Equipe 3'],
+                ]
+            ],
+            'ativo' => ['tipo'=>'boolean','label'=>'Ativo'],
+        ];
+        return view('lista', compact('linhas', 'colunas','titulo', 'descricao','adicao','edicao'));
     }
     public function store(Request $request)
     {

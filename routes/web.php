@@ -16,3 +16,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios')->middleware('auth');
 Route::get('/attUsuario', [UserController::class, 'update'])->name('attUsuario')->middleware('auth');
+Route::post('/addUsuario', [UserController::class, 'store'])->name('addUsuario')->middleware('auth');
+Route::post('/editUsuario', [UserController::class, 'update'])->name('editUsuario')->middleware('auth');
+Route::post('/delUsuario', [UserController::class, 'deactivate'])->name('delUsuario')->middleware('auth');
