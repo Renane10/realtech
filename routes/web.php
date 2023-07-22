@@ -14,6 +14,5 @@ Route::get('/inicio', function () {
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-
-Route::post('/users', [UserController::class, 'usuarios']);
-Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('auth');
+Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios')->middleware('auth');
+Route::get('/attUsuario', [UserController::class, 'update'])->name('attUsuario')->middleware('auth');

@@ -7,6 +7,10 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function index(){
+        $usuarios = User::all();
+        return view('usuarios', ['users' => $usuarios]);
+    }
     public function store(Request $request)
     {
         // Validação dos dados de entrada

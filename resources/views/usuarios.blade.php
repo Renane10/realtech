@@ -1,6 +1,4 @@
-<?php
-
-@extends('layouts.app')
+@extends('layouts.layout')
 
 @section('content')
     <div class="container">
@@ -28,7 +26,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->login }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->team->name }}</td>
+                    <td>{{ $user->team ? $user->team->name : '' }}</td>
                     <td>
                         <!-- Botão para editar usuário -->
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editUserModal{{ $user->id }}">
@@ -70,7 +68,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de edição de usuário -->
-                    <form method="POST" action="{{ route('users.update', $user->id) }}">
+                    <form method="POST" action="{{ route('attUsuario', $user->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
