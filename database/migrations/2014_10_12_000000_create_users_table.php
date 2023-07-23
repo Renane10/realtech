@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             'login' => 'admin',
             'password' => Hash::make('Realtech@10'),
             'email' => 'admin@example.com',
-            'equipe_id' => null, // Corrigido o nome da coluna
+            'equipe_id' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ];
