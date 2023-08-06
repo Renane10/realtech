@@ -96,7 +96,7 @@
                             </div>
                             <div class="modal-body">
                                 <!-- Mensagem de confirmação -->
-                                <p>Deseja realmente inativar o usuário "{{ $linha->name }}"?</p>
+                                <p>Deseja realmente DELETAR o {{$acao}}?</p>
                             </div>
                             <div class="modal-footer">
                                 <!-- Botão para cancelar a ação -->
