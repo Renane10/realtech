@@ -70,6 +70,8 @@
                     <a class="collapse-item" href="{{route('usuarios')}}">Usuários</a>
                     <a class="collapse-item" href="{{route('equipes')}}">Equipes</a>
                     <a class="collapse-item" href="{{route('clientes')}}">Clientes</a>
+                    <a class="collapse-item" href="{{route('etapas')}}">Etapas</a>
+                    <a class="collapse-item" href="{{route('processos')}}">Processos</a>
                 </div>
             </div>
         </li>
