@@ -101,12 +101,11 @@
                             <div class="modal-footer">
                                 <!-- Botão para cancelar a ação -->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <!-- Botão para confirmar a inativação -->
-                                <form method="POST" action="{{ route('del' . $acao, ['id' => $linha->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Inativar</button>
-                                </form>
+                                <!-- Botão para inativar -->
+                                <button type="button" class="btn btn-danger btn-inativar" data-route="{{ route('del' . $acao, ['id' => $linha->id]) }}">
+                                    Inativar
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -220,8 +219,8 @@
 
                 $.ajax({
                     url: route,
-                    type: 'POST',
-                    data: { _method: 'DELETE', _token: "{{ csrf_token() }}" },
+                    type: 'DELETE',
+                    data: { _token: "{{ csrf_token() }}" },
                     success: function (response) {
                         // Exibe o toast de sucesso com a mensagem retornada pelo servidor
                         showSuccessToast(response.message);

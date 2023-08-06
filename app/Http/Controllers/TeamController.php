@@ -29,7 +29,7 @@ class TeamController extends Controller
         // Obter usuários responsáveis para criar as opções do campo "Responsável"
         $usuariosResponsaveis = User::all(['id', 'name']);
         $userOptions = [
-            ['value' => null, 'label' => 'Sem equipe'], // Option for "Sem equipe" (Without team)
+            ['value' => null, 'label' => 'Sem Responsável'], // para quando não tiver responsável
         ];
 
         foreach ($usuariosResponsaveis as $team) {
@@ -65,8 +65,7 @@ class TeamController extends Controller
         ]);
 
         Team::create($validatedData);
-
-        return redirect()->route('teams.index')->with('success', 'Equipe criada com sucesso!');
+        return response()->json(['success' => true ,'message' => 'Equipe criada com sucesso!']);
     }
 
     public function update(Request $request, Team $team)
@@ -78,14 +77,18 @@ class TeamController extends Controller
         ]);
 
         $team->update($validatedData);
-
-        return redirect()->route('teams.index')->with('success', 'Equipe atualizada com sucesso!');
+        return response()->json(['success' => true ,'message' => 'Equipe atualizada com sucesso!']);
     }
 
-    public function destroy(Team $team)
+    public function destroy($id)
     {
-        $team->delete();
+        $team = Team::find($id);
 
-        return redirect()->route('teams.index')->with('success', 'Equipe excluída com sucesso!');
+        if (!$team) {
+            return response()->json(['success' => false, 'message' => 'Equipe não encontrada!']);
+        }
+
+        $team->delete();
+        return response()->json(['success' => true, 'message' => 'Equipe excluída com sucesso!']);
     }
 }

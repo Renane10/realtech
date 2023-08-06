@@ -69,6 +69,7 @@
                     <h6 class="collapse-header">Gerais</h6>
                     <a class="collapse-item" href="{{route('usuarios')}}">Usuários</a>
                     <a class="collapse-item" href="{{route('equipes')}}">Equipes</a>
+                    <a class="collapse-item" href="{{route('clientes')}}">Clientes</a>
                 </div>
             </div>
         </li>
