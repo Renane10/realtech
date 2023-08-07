@@ -8,6 +8,39 @@ use Illuminate\Support\Facades\Validator;
 
 class EtapaController extends Controller
 {
+    public function index()
+    {
+        $linhas = Etapa::all();
+
+        $titulo = 'Gerenciamento de Etapas';
+        $descricao = 'Aqui você pode cadastrar, editar e inativar as etapas do processo';
+
+        // Configuração das colunas da tabela
+        $colunas = [
+            'nome' => 'Nome',
+            'icone' => 'Ícone',
+            'cor' => 'Cor',
+            // Adicione outras colunas aqui...
+        ];
+
+        $adicao = [
+            'nome' => ['tipo' => 'string', 'label' => 'Nome'],
+            'icone' => ['tipo' => 'string', 'label' => 'Ícone'],
+            'cor' => ['tipo' => 'string', 'label' => 'Cor'],
+            // Adicione outros campos de adição aqui...
+        ];
+
+        $edicao = [
+            'nome' => ['tipo' => 'string', 'label' => 'Nome'],
+            'icone' => ['tipo' => 'string', 'label' => 'Ícone'],
+            'cor' => ['tipo' => 'string', 'label' => 'Cor'],
+            // Adicione outros campos de edição aqui...
+        ];
+
+        $acao = 'Etapa';
+
+        return view('lista', compact('linhas', 'colunas', 'titulo', 'descricao', 'adicao', 'acao', 'edicao'));
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

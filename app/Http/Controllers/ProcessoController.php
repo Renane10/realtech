@@ -9,8 +9,41 @@ class ProcessoController extends Controller
 {
     public function index()
     {
-        // Coloque aqui a lógica para obter os dados dos processos e passá-los para a view
+        $linhas = Processo::with('cliente')->get();
+
+        $titulo = 'Gerenciamento de Processos';
+        $descricao = 'Aqui você pode visualizar, criar, editar e inativar os processos do sistema';
+
+        // Configuração das colunas da tabela
+        $colunas = [
+            'numero' => 'Número',
+            'cliente.nome' => 'Cliente',
+            'status_inicial' => 'Status Inicial',
+            'status_atual' => 'Status Atual',
+            'ativo' => 'Ativo',
+        ];
+
+        $adicao = [
+            'numero' => ['tipo' => 'string', 'label' => 'Número'],
+            'cliente_id' => ['tipo' => 'select', 'label' => 'Cliente', 'options' => []], // Preencher as opções dinamicamente
+            'status_inicial' => ['tipo' => 'string', 'label' => 'Status Inicial'],
+            'status_atual' => ['tipo' => 'string', 'label' => 'Status Atual'],
+            'ativo' => ['tipo' => 'boolean', 'label' => 'Ativo'],
+        ];
+
+        $edicao = [
+            'numero' => ['tipo' => 'string', 'label' => 'Número'],
+            'cliente_id' => ['tipo' => 'select', 'label' => 'Cliente', 'options' => []], // Preencher as opções dinamicamente
+            'status_inicial' => ['tipo' => 'string', 'label' => 'Status Inicial'],
+            'status_atual' => ['tipo' => 'string', 'label' => 'Status Atual'],
+            'ativo' => ['tipo' => 'boolean', 'label' => 'Ativo'],
+        ];
+
+        $acao = 'Processo';
+
+        return view('lista', compact('linhas', 'colunas', 'titulo', 'descricao', 'adicao', 'acao', 'edicao'));
     }
+
 
     public function store(Request $request)
     {

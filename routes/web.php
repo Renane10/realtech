@@ -43,7 +43,7 @@ Route::put('/etapa/{id}', [EtapaController::class, 'update'])->name('editEtapa')
 Route::delete('/etapa/{id}', [EtapaController::class, 'destroy'])->name('delEtapa')->middleware('auth');
 
 // Rotas para o gerenciamento de Processos
-Route::get('/processos', [ProcessoController::class, 'index'])->name('processos.index')->middleware('auth');
+Route::get('/processos', [ProcessoController::class, 'index'])->name('processos')->middleware('auth');
 Route::post('/processo', [ProcessoController::class, 'store'])->name('addProcesso')->middleware('auth');
 Route::put('/processo/{id}', [ProcessoController::class, 'update'])->name('editProcesso')->middleware('auth');
 Route::delete('/processo/{id}', [ProcessoController::class, 'destroy'])->name('delProcesso')->middleware('auth');
