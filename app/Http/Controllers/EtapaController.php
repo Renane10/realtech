@@ -18,22 +18,23 @@ class EtapaController extends Controller
         // Configuração das colunas da tabela
         $colunas = [
             'nome' => 'Nome',
+            'id_fluxo'=>'Fluxo',
             'icone' => 'Ícone',
             'cor' => 'Cor',
-            // Adicione outras colunas aqui...
+            'id_fatura'=>'Fatura',
         ];
 
         $adicao = [
             'nome' => ['tipo' => 'string', 'label' => 'Nome'],
-            'icone' => ['tipo' => 'string', 'label' => 'Ícone'],
-            'cor' => ['tipo' => 'string', 'label' => 'Cor'],
+            'icone' => ['tipo' => 'icone', 'label' => 'Ícone'],
+            'cor' => ['tipo' => 'cor', 'label' => 'Cor'],
             // Adicione outros campos de adição aqui...
         ];
 
         $edicao = [
             'nome' => ['tipo' => 'string', 'label' => 'Nome'],
-            'icone' => ['tipo' => 'string', 'label' => 'Ícone'],
-            'cor' => ['tipo' => 'string', 'label' => 'Cor'],
+            'icone' => ['tipo' => 'icone', 'label' => 'Ícone'],
+            'cor' => ['tipo' => 'cor', 'label' => 'Cor'],
             // Adicione outros campos de edição aqui...
         ];
 

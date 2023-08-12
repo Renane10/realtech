@@ -138,6 +138,40 @@
                                             <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
                                         @endforeach
                                     </select>
+                                @elseif($config['tipo'] === 'cor')
+                                    <input type="color" class="form-control" id="add_{{ $campo }}" name="{{ $campo }}" value="#000000">
+                                @elseif($config['tipo'] === 'icone')
+                                    <div class="icon-radio">
+                                        <input type="radio" name="icone" value="fas fa-star" id="icone-star">
+                                        <label for="icone-star"><i class="fas fa-star"></i></label>
+
+                                        <input type="radio" name="icone" value="fas fa-heart" id="icone-heart">
+                                        <label for="icone-heart"><i class="fas fa-heart"></i></label>
+
+                                        <input type="radio" name="icone" value="fas fa-bell" id="icone-bell">
+                                        <label for="icone-bell"><i class="fas fa-bell"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-address-book" id="icone-adress">
+                                        <label for="icone-adress"><i class="fa fa-address-book"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-times" id="icone-times">
+                                        <label for="icone-times"><i class="fa fa-times"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-arrow-left" id="icone-arrow-right-left">
+                                        <label for="icone-left"><i class="fa fa-arrow-left"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-arrow-right" id="icone-arrow-right">
+                                        <label for="icone-arrow-right"><i class="fa fa-arrow-right"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-undo" id="icone-undo">
+                                        <label for="icone-undo"><i class="fa fa-undo"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-money" id="icone-money">
+                                        <label for="icone-money"><i class="fa fa-money"></i></label>
+
+                                        <input type="radio" name="icone" value="fa fa-envelope" id="icone-envelope">
+                                        <label for="icone-envelope"><i class="fa fa-envelope"></i></label>
+                                    </div>
                                 @else
                                     <input type="{{ $config['tipo'] }}" class="form-control" id="add_{{ $campo }}" name="{{ $campo }}" required>
                                 @endif
@@ -163,6 +197,10 @@
 
         // Evento DOMContentLoaded para carregar o código após o carregamento da página
         document.addEventListener('DOMContentLoaded', function () {
+            $('.icon-radio input[type="radio"]').change(function() {
+                const selectedIcon = $(this).val();
+                $('#hidden-icon').val(selectedIcon);
+            });
             // Evento para submeter o formulário de adição via AJAX
             $('#addForm').submit(function (event) {
                 event.preventDefault();
@@ -237,3 +275,22 @@
         });
     </script>
 @endsection
+<style>
+    .icon-radio input[type="radio"] {
+        display: none;
+    }
+
+    .icon-radio label {
+        display: inline-block;
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .icon-radio input[type="radio"]:checked + label {
+        background-color: #007bff;
+        color: white;
+    }
+
+</style>
