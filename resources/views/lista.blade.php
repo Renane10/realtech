@@ -23,7 +23,11 @@
             @foreach ($linhas as $linha)
                 <tr>
                     @foreach ($colunas as $coluna => $label)
-                        <td>{{ $linha->$coluna }}</td>
+                        @if($coluna == 'icone')
+                            <td><i class="{{ $linha->icone }}" style="color: {{$linha->cor}}"></i></td>
+                        @else
+                            <td>{{ $coluna }}</td>
+                        @endif
                     @endforeach
                     <td>
                         <!-- Botão para editar -->
@@ -55,8 +59,8 @@
                                     @method('PUT')
                                     @foreach ($edicao as $campo => $config)
                                         <div class="form-group">
+                                            <label for="edit_{{ $campo }}">{{ $config['label'] }}</label>
                                             @if ($config['tipo'] === 'select')
-                                                <label for="edit_{{ $campo }}">{{ $config['label'] }}</label>
                                                 <select class="form-control" id="edit_{{ $campo }}" name="{{ $campo }}">
                                                     @foreach ($config['options'] as $option)
                                                         <option value="{{ $option['value'] }}" {{ $linha->$campo == $option['value'] ? 'selected' : '' }}>
@@ -64,15 +68,41 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            @elseif ($config['tipo'] === 'boolean')
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="edit_{{ $campo }}" name="{{ $campo }}" {{ $linha->$campo ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="edit_{{ $campo }}">
-                                                        {{ $config['label'] }}
-                                                    </label>
+                                            @elseif ($config['tipo'] === 'cor')
+                                                <input type="color" class="form-control" id="edit_{{ $campo }}" name="{{ $campo }}" value="{{ $linha->$campo }}">
+                                            @elseif($config['tipo'] === 'icone')
+                                                <div class="icon-radio">
+                                                    <input type="radio" name="icone" value="fas fa-star" id="icone-star-edit">
+                                                    <label for="icone-star-edit"><i class="fas fa-star"></i></label>
+
+                                                    <input type="radio" name="icone" value="fas fa-heart" id="icone-heart-edit">
+                                                    <label for="icone-heart-edit"><i class="fas fa-heart"></i></label>
+
+                                                    <input type="radio" name="icone" value="fas fa-bell" id="icone-bell-edit">
+                                                    <label for="icone-bell-edit"><i class="fas fa-bell"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-address-book" id="icone-adress-edit">
+                                                    <label for="icone-adress-edit"><i class="fa fa-address-book"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-times" id="icone-times-edit">
+                                                    <label for="icone-times-edit"><i class="fa fa-times"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-arrow-left" id="icone-arrow-right-left-edit">
+                                                    <label for="icone-left-edit"><i class="fa fa-arrow-left"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-arrow-right" id="icone-arrow-right-edit">
+                                                    <label for="icone-arrow-right-edit"><i class="fa fa-arrow-right"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-undo" id="icone-undo-edit">
+                                                    <label for="icone-undo-edit"><i class="fa fa-undo"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-money" id="icone-money-edit">
+                                                    <label for="icone-money-edit"><i class="fa fa-money"></i></label>
+
+                                                    <input type="radio" name="icone" value="fa fa-envelope" id="icone-envelope-edit">
+                                                    <label for="icone-envelope-edit"><i class="fa fa-envelope"></i></label>
                                                 </div>
                                             @else
-                                                <label for="edit_{{ $campo }}">{{ $config['label'] }}</label>
                                                 <input type="{{ $config['tipo'] }}" class="form-control" id="edit_{{ $campo }}" name="{{ $campo }}" value="{{ $linha->$campo }}" required>
                                             @endif
                                         </div>
@@ -127,7 +157,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de adição -->
-                    <form id="addForm" method="POST" action="{{ route('add'. $acao) }}">
+                    <form id="addForm">
                         @csrf
                         @foreach ($adicao as $campo => $config)
                             <div class="form-group">
@@ -226,20 +256,22 @@
                 });
             });
 
-            // Evento para submeter o formulário de edição via AJAX
+            // Ajax para edição
             $('form[id^="editForm"]').submit(function (event) {
                 event.preventDefault();
 
+                var form = $(this); // Salvando a referência ao formulário em uma variável
+
                 $.ajax({
-                    url: $(this).attr('action'),
+                    url: form.attr('action'),
                     type: 'POST',
-                    data: $(this).serialize(),
+                    data: form.serialize(),
                     success: function (response) {
                         // Exibe o toast de sucesso com a mensagem retornada pelo servidor
                         showSuccessToast(response.message);
 
-                        // Fecha o modal de edição
-                        $(this).closest('.modal').modal('hide');
+                        // Fecha o modal de edição usando a variável "form"
+                        form.closest('.modal').modal('hide');
 
                         // Recarrega a página para atualizar a tabela
                         location.reload();
@@ -250,8 +282,7 @@
                     }
                 });
             });
-
-            // Evento para enviar a requisição de inativação via AJAX
+                // Evento para enviar a requisição de inativação via AJAX
             $('.btn-inativar').click(function () {
                 const route = $(this).data('route');
 

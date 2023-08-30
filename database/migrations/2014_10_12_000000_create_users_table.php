@@ -32,8 +32,8 @@ class CreateUsersTable extends Migration
             'password' => Hash::make('Realtech@10'),
             'email' => 'admin@example.com',
             'equipe_id' => null,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at' => '2023-01-01 10:10:10',
+            'updated_at' => '2023-01-01 10:10:10',
         ];
 
         DB::table('users')->insert($admin);

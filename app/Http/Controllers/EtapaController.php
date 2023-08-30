@@ -18,9 +18,7 @@ class EtapaController extends Controller
         // Configuração das colunas da tabela
         $colunas = [
             'nome' => 'Nome',
-            'id_fluxo'=>'Fluxo',
             'icone' => 'Ícone',
-            'cor' => 'Cor',
             'id_fatura'=>'Fatura',
         ];
 
